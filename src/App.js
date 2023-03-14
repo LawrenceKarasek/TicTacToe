@@ -1,10 +1,10 @@
-import React from 'react';
-import './styles.css';
-import Board from './Components/Board';
+import React from "react";
+import "./styles.css";
+import Board from "./Components/Board";
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Board />
     </div>
   );

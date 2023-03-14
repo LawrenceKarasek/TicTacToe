@@ -3,53 +3,53 @@ export const getData = async () => {
     {
       row: 1,
       column: 1,
-      state: null
+      state: null,
     },
     {
       row: 1,
       column: 2,
-      state: null
+      state: null,
     },
     {
       row: 1,
       column: 3,
-      state: null
+      state: null,
     },
     {
       row: 2,
       column: 1,
-      state: null
+      state: null,
     },
     {
       row: 2,
       column: 2,
-      state: null
+      state: null,
     },
     {
       row: 2,
       column: 3,
-      state: null
+      state: null,
     },
     {
       row: 3,
       column: 1,
-      state: null
+      state: null,
     },
     {
       row: 3,
       column: 2,
-      state: null
+      state: null,
     },
     {
       row: 3,
       column: 3,
-      state: null
-    }
+      state: null,
+    },
   ];
 };
 
 export const cellData = {
   row: 1,
   column: 1,
-  state: null
+  state: null,
 };
