@@ -1,10 +1,6 @@
 import { render, screen, waitFor, fireEvent} from "@testing-library/react";
 import Board from "./Board";
 
-/* function setup() {
-  render(<Board />);
-}
- */
 
 describe("Board is rendered correctly", () => {
   it("renders the Board", async () => {
@@ -33,14 +29,21 @@ describe("Board is rendered correctly", () => {
     await waitFor( async () => {
         cellList = screen.getAllByRole('cell');        
         cellButton = cellList[0];
-        fireEvent.click(cellButton);
-        const updatedXButton = await screen.findByText('X');
-        expect(updatedXButton).not.toBeNull;
     });
+
+    fireEvent.click(cellButton);
+
+
+    await waitFor( async () => {    
+      const updatedXButton = await screen.findByText('X');
+      expect(updatedXButton).not.toBeNull();
+    });
+
+    fireEvent.click(cellButton);
+
     await waitFor( async () => {
-      fireEvent.click(cellButton);
       const updatedOButton = await screen.findByText('O');
-      expect(updatedOButton).not.toBeNull;
+      expect(updatedOButton).not.toBeNull();
     });
 
   });
@@ -55,23 +58,28 @@ describe("Board is rendered correctly", () => {
     let cellButton = null;
     await waitFor(async () => {
       cellList = screen.getAllByRole('cell');
-      cellButton = cellList[0];
-      fireEvent.click(cellButton);
-
-      const updatedFirstButton = await screen.findByText('X');
-      expect(updatedFirstButton).not.toBeNull;      
+      cellButton = cellList[0];    
     });
 
+    fireEvent.click(cellButton);
+
     await waitFor(async () => {
-      cellButton = cellList[1];
-      fireEvent.click(cellButton);
+      const updatedFirstButton = await screen.findByText('X');
+      expect(updatedFirstButton).not.toBeNull();  
+    })
+
+    cellButton = cellList[1];
+    fireEvent.click(cellButton);
+
+    await waitFor(async () => {
       const updatedButtons = await screen.findAllByText('X');
       expect(updatedButtons).toHaveLength(2);
     })
-    
+
+    cellButton = cellList[2];
+    fireEvent.click(cellButton);
+
     await waitFor(async () => {
-      cellButton = cellList[2];
-      fireEvent.click(cellButton);
       const updatedButtons = await screen.findAllByText('X');
       expect(updatedButtons).toHaveLength(3); 
     })
