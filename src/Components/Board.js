@@ -14,14 +14,18 @@ const Board = () => {
   const wonRef = useRef(false);
 
   const fetchData = useCallback(async () => {
-    const response = await getData();
-    wonRef.current = false;
-    setCells(response);
+    await getData()
+      .then((result) => {
+        setCells(result);
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  const calc = (n1, n2) => n1 + n2;
 
   const checkScore = () => {
     let isWin = false;
@@ -105,7 +109,11 @@ const Board = () => {
 
   const clearBoard = () => {
     wonRef.current = false;
-    fetchData();
+    let cellsCopy = [...cells];
+    cellsCopy = cellsCopy.map((c) => {
+      return { ...c, state: null };
+    });
+    setCells(cellsCopy);
   };
 
   const updateCell = (cell) => {
