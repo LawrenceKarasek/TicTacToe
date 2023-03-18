@@ -32,7 +32,6 @@ npm run format
 Data is loaded asynchronously using a Promise. The useEffect hook includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
 
 `
-
 const [cells, setCells] = useState();
 const fetchData = useCallback(async () => {
 getData()
@@ -43,7 +42,6 @@ getData()
 useEffect(() => {
 fetchData();
 }, [fetchData]);
-
 `
 
 The fetchData methods calls the getData function in Data.js asynchronously. Since Promises are being used with "thenable", it allows the results to be assigned to the state in setVideos.
@@ -110,6 +108,7 @@ After the cell data is loaded into state, cells are written one row at a time. T
     </Fragment>
   );
 };
+
 `
 
 ## Cell.js
@@ -129,7 +128,6 @@ Cell.propTypes = {
   cellData: PropTypes.object,
   updateCell: PropTypes.func,
 };
-
 `
 ## Updating the Cells
 
