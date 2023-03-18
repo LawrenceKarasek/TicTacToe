@@ -25,8 +25,6 @@ const Board = () => {
     fetchData();
   }, [fetchData]);
 
-  const calc = (n1, n2) => n1 + n2;
-
   const checkScore = () => {
     let isWin = false;
 
@@ -68,14 +66,14 @@ const Board = () => {
         wonRowsColumns = cells.reduce((isWon, f) => {
           rowCount =
             f.row === number && f.state === state ? rowCount + 1 : rowCount;
-          return (isWon = isWon || rowCount === 3);
+          return isWon || rowCount === 3;
         }, false);
         break;
       case "column":
         wonRowsColumns = cells.reduce((isWon, f) => {
           rowCount =
             f.column === number && f.state === state ? rowCount + 1 : rowCount;
-          return (isWon = isWon || rowCount === 3);
+          return isWon || rowCount === 3;
         }, false);
         break;
       case "diagonal":
@@ -86,7 +84,7 @@ const Board = () => {
             (f.row === 3 && f.column === 3 && f.state === state)
               ? rowCount + 1
               : rowCount;
-          return (isWon = isWon || rowCount === 3);
+          return isWon || rowCount === 3;
         }, false);
         if (!wonRowsColumns) {
           wonRowsColumns = cells.reduce((isWon, f) => {
@@ -96,7 +94,7 @@ const Board = () => {
               (f.row === 3 && f.column === 1 && f.state === state)
                 ? rowCount + 1
                 : rowCount;
-            return (isWon = isWon || rowCount === 3);
+            return isWon || rowCount === 3;
           }, false);
         }
         break;
@@ -142,16 +140,15 @@ const Board = () => {
   };
 
   const writeCellRow = (row) => {
-    const rowsFiltered = cells.filter((f) => f.row === row);
-    const rowData = rowsFiltered.map((item) => (
-      <Cell
-        cellData={item}
-        key={item.row + "_" + item.column}
-        updateCell={updateCell}
-      />
-    ));
-
-    return rowData;
+    return cells
+      .filter((f) => f.row === row)
+      .map((item) => (
+        <Cell
+          cellData={item}
+          key={item.row + "_" + item.column}
+          updateCell={updateCell}
+        />
+      ));
   };
 
   return (

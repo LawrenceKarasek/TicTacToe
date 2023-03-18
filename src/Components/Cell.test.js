@@ -29,7 +29,6 @@ describe("Cell is rendered correctly", () => {
 
   it("clicking Cell calls update ", async () => {
     let cellButton = null;
-
     render(
       <Cell
         cellData={cellData}
@@ -46,7 +45,6 @@ describe("Cell is rendered correctly", () => {
     fireEvent.click(cellButton);
 
     await waitFor(async () => {
-      // const Obutton = await screen.findByText('O');
       expect(updateCell).toHaveBeenCalledTimes(1);
     });
   });
