@@ -32,6 +32,7 @@ npm run format
 Data is loaded asynchronously using a Promise. The useEffect hook includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
 
 `
+
 const [cells, setCells] = useState();
 const fetchData = useCallback(async () => {
 getData()
@@ -128,6 +129,7 @@ Cell.propTypes = {
   cellData: PropTypes.object,
   updateCell: PropTypes.func,
 };
+
 `
 ## Updating the Cells
 
@@ -203,8 +205,9 @@ In order to check the score, each row and column plus the tewo diagonals must be
 
 The checkRowsColumnsWon function uses the reduce function to return a boolean for each type of check. For eeach item in the array, reduce updates the accummulator parameter, in this case, "isWon". If the row or column number and state match, the rowCount is incremented, and isWon is set to true when the rowCount = 3.
 
+
 `
-`
+
   const checkRowsColumnsWon = (type, number, state) => {
     let wonRowsColumns = false;
     let rowCount = 0;
