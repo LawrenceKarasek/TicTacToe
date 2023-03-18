@@ -71,6 +71,7 @@ reject('An error occurred fetching data:' + e);
 After the cell data is loaded into state, cells are written one row at a time. The WriteCellRow method filters the cells for each row then returns an array of cells:
 
 `
+
   const writeCellRow = (row) => {
     return cells
       .filter((f) => f.row === row)
@@ -82,11 +83,13 @@ After the cell data is loaded into state, cells are written one row at a time. T
         />
       ));
   };
-  1`
+  
+  `
 
   The UI includes a wonRef which uses the useRef webHook to maintain the status of the board between state re-renders. This was used because if this is maintained in state along with the cell state, the behavior in re-rendering the board is unpredictable. 
 
 `
+
   return (
     <Fragment>
       <h1 className="header"> Board </h1>
@@ -116,6 +119,7 @@ After the cell data is loaded into state, cells are written one row at a time. T
 Each cell receives its State from the Board with a callback for updating the state.
 
 `
+
 const Cell = ({ cellData, updateCell }) => {
   return (
     <button className="cell" role="cell" onClick={() => updateCell(cellData)}>
@@ -128,12 +132,15 @@ Cell.propTypes = {
   cellData: PropTypes.object,
   updateCell: PropTypes.func,
 };
+
 `
+
 ## Updating the Cells
 
 Cells in the Board are updated from "X" to "O" then back to null as follows. Note it is necessary to copy the initial array of cells before the state is updated using setCells to create a new reference in memory. The single cell is updated by using the array findIndex and then splice methods.
 
 `
+
   const updateCell = (cell) => {
     let updatedState = "";
     switch (cell.state) {
