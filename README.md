@@ -15,15 +15,15 @@ Board and Cell components.
 
 # Running the project
 
-`
+
 npm install npm start
-`
+
 Also, to check for any coding issues and correct formatting:
 
-`
+
 npm run eslint 
 npm run format
-`
+
 
 # Board.js
 
@@ -31,7 +31,7 @@ npm run format
 
 Data is loaded asynchronously using a Promise. The useEffect hook includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
 
-`
+
 
 const [cells, setCells] = useState();
 const fetchData = useCallback(async () => {
@@ -44,7 +44,7 @@ useEffect(() => {
 fetchData();
 }, [fetchData]);
 
-`
+
 
 The fetchData methods calls the getData function in Data.js asynchronously. Since Promises are being used with "thenable", it allows the results to be assigned to the state in setVideos.
 
@@ -52,7 +52,7 @@ The fetchData methods calls the getData function in Data.js asynchronously. Sinc
 
 The getData method in Data.js uses a Promise to asynchronously load json data using 'resolve'. If an error occurs, the Promise returns 'reject' with the error message. 
 
-`
+'
 
 const getData = () => {
 return new Promise((resolve, reject) => {
@@ -69,12 +69,13 @@ reject('An error occurred fetching data:' + e);
 });
 };
 
-`
+'
+
 ## Rendering
 
 After the cell data is loaded into state, cells are written one row at a time. The WriteCellRow method filters the cells for each row then returns an array of cells:
 
-`
+
 
   const writeCellRow = (row) => {
     return cells
@@ -88,11 +89,11 @@ After the cell data is loaded into state, cells are written one row at a time. T
       ));
   };
   
-`
+
 
   The UI includes a wonRef which uses the useRef webHook to maintain the status of the board between state re-renders. This was used because if this is maintained in state along with the cell state, the behavior in re-rendering the board is unpredictable. 
 
-`
+
 
   return (
     <Fragment>
@@ -116,13 +117,13 @@ After the cell data is loaded into state, cells are written one row at a time. T
   );
 };
 
-`
+
 
 ## Cell.js
 
 Each cell receives its State from the Board with a callback for updating the state.
 
-`
+
 
 const Cell = ({ cellData, updateCell }) => {
   return (
@@ -137,13 +138,13 @@ Cell.propTypes = {
   updateCell: PropTypes.func,
 };
 
-`
+
 
 ## Updating the Cells
 
 Cells in the Board are updated from "X" to "O" then back to null as follows. Note it is necessary to copy the initial array of cells before the state is updated using setCells to create a new reference in memory. The single cell is updated by using the array findIndex and then splice methods.
 
-`
+
 
   const updateCell = (cell) => {
     let updatedState = "";
@@ -170,13 +171,13 @@ Cells in the Board are updated from "X" to "O" then back to null as follows. Not
     checkScore();
   };
 
-`
+
 
 ## Checking the Score
 
 In order to check the score, each row and column plus the tewo diagonals must be checkd for both "X" and "O". This is done sequentiually using the checkRowsColumnsWon function, which takes the type of check ("row", "column" or "diagonal") and the row or coilumn number, if applicable.
 
-`
+
 
   const checkScore = () => {
     let isWin = false;
@@ -210,12 +211,12 @@ In order to check the score, each row and column plus the tewo diagonals must be
     }
   };
 
-`
+
 
 The checkRowsColumnsWon function uses the reduce function to return a boolean for each type of check. For eeach item in the array, reduce updates the accummulator parameter, in this case, "isWon". If the row or column number and state match, the rowCount is incremented, and isWon is set to true when the rowCount = 3.
 
 
-`
+
 
   const checkRowsColumnsWon = (type, number, state) => {
     let wonRowsColumns = false;
@@ -265,7 +266,7 @@ The checkRowsColumnsWon function uses the reduce function to return a boolean fo
     return wonRowsColumns;
   };
 
-`
+
 
 # Unit tests
 
@@ -273,7 +274,6 @@ The Board and Cell components are unit tested to verify they are properly loaded
 
 # Board.test.js
 
-`
 
 describe("Board is rendered correctly", () => {
   it("renders the Board and displays correct number of cells", async () => {
@@ -340,13 +340,13 @@ describe("selecting 3 X's or O's in a row results in winning", () => {
   });
 });
 
-`
+
 
 ## Cell.test.js
 
 The cell is mocked to verify it is rendering correctly and the updateCell function is called. Mockingthe data for a component is less realistic then actual user interaction but necessary in many cases since a component depends on live data. 
 
-`
+
 const cellData = {
   row: 1,
   column: 1,
@@ -395,7 +395,7 @@ describe("Cell is rendered correctly", () => {
   });
 });
 
-`
+
 
 # Conclusion
 
