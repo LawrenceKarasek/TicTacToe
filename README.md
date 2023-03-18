@@ -1,6 +1,6 @@
 # Overview
 
-In this Tic Tac Toe app, I demonstrate the use of javascript ES6 functions in a UI app inlcuding reducer, filter, map, splice and findIndex. This also includes unit testing with multiple user interactions
+In this Tic Tac Toe app, I demonstrate the use of javascript ES6 functions in a UI app inlcuding reducer, filter, map, splice and findIndex. This also includes unit testing with multiple user events.
 
 # Project setup
 
