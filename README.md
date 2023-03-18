@@ -8,28 +8,24 @@ The project is bootstrapped with Create React App and also includes eslint and p
 
 # Project structure
 
-App.js
-entry point for the application
+Data.js:  provides aysnchronous access to json data for the board
 
-Data.js
-provides aysnchronous access to json data for the board
-
-Components
-Board and Cell components..
+Components:
+Board and Cell components.
 
 # Running the project
 npm install npm start
 
-also to check for any coding issue and format:
+Also, to check for any coding issues and correct formatting:
 
 npm run eslint 
 npm run format
 
-# Design practices and code structure
+# Board.js
 
 ## Loading Data:
 
-Data is loaded asynchronously Board.js. The useEffect hook includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
+Data is loaded asynchronously using a Promise. The useEffect hook includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
 
 const [cells, setCells] = useState();
 const fetchData = useCallback(async () => {
@@ -44,7 +40,8 @@ fetchData();
 
 The fetchData methods calls the getData function in Data.js asynchronously. Since Promises are being used with "thenable", it allows the results to be assigned to the state in setVideos.
 
-Data.js
+## Data.js
+
 The getData method in Data.js uses a Promise to asynchronously load json data using 'resolve'. If an error occurs, the Promise returns 'reject' with the error message. 
 
 const getData = () => {
@@ -101,6 +98,24 @@ After the cell data is loaded into state, cells are written one row at a time. T
     </Fragment>
   );
 };
+
+## Cell.js
+
+Each cell receives its State from the Board with a callback for updating the state.
+
+const Cell = ({ cellData, updateCell }) => {
+  return (
+    <button className="cell" role="cell" onClick={() => updateCell(cellData)}>
+      <span className="cellText">{cellData.state}</span>
+    </button>
+  );
+};
+
+Cell.propTypes = {
+  cellData: PropTypes.object,
+  updateCell: PropTypes.func,
+};
+
 
 ## Updating the Cells
 
@@ -218,7 +233,8 @@ The checkRowsColumnsWon function uses the reduce function to return a boolean fo
   };
 
 
-## Unit tests
+# Unit tests
+
 The Board and Cell components are unit tested to verify they are properly loaded and the updating and scoring functionality is working correctly. The actual user interactions are checked using the React testing library and the .
 
 # Board.test.js
@@ -288,7 +304,7 @@ describe("selecting 3 X's or O's in a row results in winning", () => {
   });
 });
 
-# Cell.test.js
+## Cell.test.js
 
 The cell is mocked to verify it is rendering correctly and the updateCell function is called. Mockingthe data for a component is less realistic then actual user interaction but necessary in many cases since a component depends on live data. 
 
