@@ -1,6 +1,6 @@
 # Overview
 
-In this Tic Tac Toe app, I demonstrate the use of javascript ES6 functions in a UI app inlcuding reducer, filter, map, splice and findIndex. This also includes unit testing with multiple user events.
+In this Tic Tac Toe app, I demonstrate the use of javascript ES6 functions in a UI app including reducer, filter, map, splice and findIndex. This also includes unit testing with multiple user events.
 
 # Project setup
 
@@ -10,8 +10,7 @@ The project is bootstrapped with Create React App and also includes eslint and p
 
 Data.js:  provides aysnchronous access to json data for the board
 
-Components:
-Board and Cell components.
+Components: Board and Cell components with unit tests.
 
 # Running the project
 
@@ -31,9 +30,9 @@ npm run format
 ```
 
 
-# Board.js
+# Loading Data 
 
-## Loading Data
+## Board.js
 
 Data is loaded asynchronously using a Promise. The useEffect hook includes fetchData in its dependency array and calls the fetchData method on initial loading. To prevent unneccessary reloads, fetchData is contained in a useCallback. This ensures the fetchData function is memoized (cached). Otherwise, each time useEffect is called, a new version of the function would be created and useEffect would call fetchData again.
 
@@ -77,7 +76,9 @@ reject('An error occurred fetching data:' + e);
 
 ```
 
-## Rendering
+# Rendering
+
+## Board.js
 
 After the cell data is loaded into state, cells are written one row at a time. The WriteCellRow method filters the cells for each row then returns an array of cells:
 
@@ -146,7 +147,9 @@ Cell.propTypes = {
 
 ```
 
-## Updating the Cells
+# Updating the Cells
+
+## Board.js
 
 Cells in the Board are updated from "X" to "O" then back to null as follows. Note it is necessary to copy the initial array of cells before the state is updated using setCells to create a new reference in memory. The single cell is updated by using the array findIndex and then splice methods.
 
@@ -276,7 +279,7 @@ The checkRowsColumnsWon function uses the reduce function to return a boolean fo
 
 # Unit tests
 
-The Board and Cell components are unit tested to verify they are properly loaded and the updating and scoring functionality is working correctly. The actual user interactions are checked using the React testing library and the .
+The Board and Cell components are unit tested to verify they are properly loaded and the updating and scoring functionality is working correctly. The actual user interactions are checked using the React testing library.
 
 # Board.test.js
 
@@ -407,4 +410,4 @@ describe("Cell is rendered correctly", () => {
 
 # Conclusion
 
-I hope this is helpful for those learning how to use javascript ES6 array functions such as reduce and filter effectively in front end code. I welcome your feedback to improve this article, All the Best!
+I hope this is helpful for those learning how to use advanced javascript ES6 functions effectively in front end code. I welcome your feedback to improve this article, All the Best!
